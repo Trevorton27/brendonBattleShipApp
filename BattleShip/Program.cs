@@ -6,79 +6,87 @@ namespace BattleShip
     {
         static void Main(string[] args)
         {
-            var gameBoard = new GameBoard();
-            //var ship = new Ship();
-            var attemptsRemaining = 8;
-            var attemptsRemainingText = "";
-            bool successfulAttempt = true;
-            gameBoard.initializeCoordinates();
-            gameBoard.assignShipCoordinates();
-            //ship.assignShipCoordinates();
+            var isPlayAgain = true;
             do
             {
-                if(attemptsRemaining == 1)
+                var gameBoard = new GameBoard
                 {
-                    attemptsRemainingText = "Last Attempt";
-                }
-                else
+                    ShipHealth = 5
+                };
+                var attemptsRemaining = 8;
+                bool successfulAttempt = true;
+                bool IsGuessed = false;
+                gameBoard.InitializeCoordinates();
+                gameBoard.InitializeShip();
+                do
                 {
-                    attemptsRemainingText = attemptsRemaining.ToString();
-                }
+                    string attemptsRemainingText;
+                    if (attemptsRemaining == 1)
+                        attemptsRemainingText = "Last shot! Aim well!";
+                    else
+                        attemptsRemainingText = attemptsRemaining.ToString();
 
-                if (!successfulAttempt)
-                {
-                    attemptsRemainingText = attemptsRemainingText + " --> REDO: Be careful with what you type ;)";
-                }
+                    if (!successfulAttempt)
+                        attemptsRemainingText += " --> REDO: Put on your glasses! Where are you aiming?!";
 
-                gameBoard.drawBoard();
-                Console.WriteLine("");
-                Console.WriteLine($"Attempts Remaining: {attemptsRemainingText}");
-                Console.WriteLine("");
-                Console.WriteLine("1 Make Guess");
-                Console.WriteLine("2 Display all coordinates");
-                Console.WriteLine("3 Display Ship Coordinates");
-                Console.WriteLine("Press 'x' to quit");
-
-                var switchValue = Console.ReadLine();
-
-                successfulAttempt = true;
-                try
-                {
-                    switch (switchValue)
+                    if (IsGuessed)
                     {
-                        case "1":
-                            Console.WriteLine("Column:");
-                            var column1 = Console.ReadLine().ToUpper();
-                            Console.WriteLine("Row:");
-                            var row1 = Int32.Parse(Console.ReadLine());
-                            gameBoard.ChangeIsVisible(column1, row1);
-                            break;
-                        case "2":
-                            break;
-                        case "3":
-                            break;
-                        case "4":
-                            break;
-                        case "5":
-                            break;
-                        case "x":
-                            return;
-                        default:
-                            break;
+                        attemptsRemainingText += "--> REDO: Commander, we've already hit that spot!";
+                        IsGuessed = false;
+                    }
+                    gameBoard.DrawGameBoard();
+                    Console.WriteLine("");
+                    Console.WriteLine($"Turns Remaining: {attemptsRemainingText}");
+                    Console.WriteLine("");
+                    Console.WriteLine("1 - Fire shot ##>");
+                    Console.WriteLine("2 - Use binoculars 0_0");
+                    Console.WriteLine("Press 'x' to exit the game");
+                    Console.WriteLine();
+                    Console.Write("Awaiting your orders, Commander: ");
+                    var switchValue = Console.ReadLine();
+                    successfulAttempt = true;
+                    try
+                    {
+                        switch (switchValue)
+                        {
+                            case "1":
+                                Console.Write("Column (A-J): ");
+                                var column1 = gameBoard.ChangeLetterToNumber((Console.ReadLine().ToUpper()));
+                                Console.Write("Row (1-10): ");
+                                var row1 = Int32.Parse(Console.ReadLine()) - 1;
+                                gameBoard.ToggleIsVisible(column1, row1);
+                                IsGuessed = gameBoard.CheckIsGuessed(column1, row1);
+                                gameBoard.ToggleIsGuessed(column1, row1);
+                                break;
+                            case "2":
+                                gameBoard.ShowShipTimer(250);
+                                break;
+                            case "x":
+                                return;
+                            default:
+                                successfulAttempt = false;
+                                break;
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        successfulAttempt = false;
                     }
 
-                }
-                catch (Exception)
-                {
-                    successfulAttempt = false;
-                }
-
-                if (successfulAttempt)
-                {
-                    attemptsRemaining--;
-                }
-
-            } while (attemptsRemaining > 0);
+                    if (successfulAttempt && !IsGuessed)
+                        attemptsRemaining--;
+                } while (attemptsRemaining > 0);
+                gameBoard.DrawGameBoard();
+                gameBoard.ShowShipPermanent();
+                Console.WriteLine();
+                Console.WriteLine("         Good Game!");
+                Console.WriteLine();
+                Console.WriteLine("Play Again? (y/n)");
+                var input = Console.ReadLine().ToUpper();
+                if (input != "Y")
+                    isPlayAgain = false;
+            } while (isPlayAgain);
         }
     }
 }

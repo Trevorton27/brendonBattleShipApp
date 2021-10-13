@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "tK42lSmt1XYdaoReknIvnwicsDfNdF1OiVamV8+ZzV3vTFn5J1Iq+CynGh56c014Xw8ZkRfagBDMq+oJqRZwQQ==",
+  "dgSpecHash": "GWhPswVOVTdRH3hVmo6pnMTo3Tr98F4nc2q90+bYwLraPLQmO3oejaHf+YdVRCVwvK5xeD5pSKJA1TC7N0ahQA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Brendon\\dev\\Project\\BattleShip\\BattleShip\\BattleShip\\BattleShip.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Brendon\\.nuget\\packages\\microsoft.netcore.app\\2.0.0\\microsoft.netcore.app.2.0.0.nupkg.sha512",
+    "C:\\Users\\Brendon\\.nuget\\packages\\microsoft.netcore.dotnetapphost\\2.0.0\\microsoft.netcore.dotnetapphost.2.0.0.nupkg.sha512",
+    "C:\\Users\\Brendon\\.nuget\\packages\\microsoft.netcore.dotnethostpolicy\\2.0.0\\microsoft.netcore.dotnethostpolicy.2.0.0.nupkg.sha512",
+    "C:\\Users\\Brendon\\.nuget\\packages\\microsoft.netcore.dotnethostresolver\\2.0.0\\microsoft.netcore.dotnethostresolver.2.0.0.nupkg.sha512",
+    "C:\\Users\\Brendon\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\Brendon\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
